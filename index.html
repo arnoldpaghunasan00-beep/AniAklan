@@ -141,6 +141,9 @@
             cursor: pointer;
             font-weight: 700;
             transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
         }
 
         .tab.active, .tab:hover {
@@ -374,12 +377,14 @@
         <ul class="nav-menu">
             <li><a href="#home">Home</a></li>
             <li><a href="#shop">Tindahan</a></li>
-            <li><a href="#learn">Matuto</a></li>
-            <li><a href="#community">Komunidad</a></li>
+            <li><a href="#pagsasaka">Pagsasaka</a></li>
+            <li><a href="#ulat">Ulat</a></li>
+            <li><a href="#tulong">Tulong at Impormasyon</a></li>
+            <li><a href="#admin">Admin</a></li>
         </ul>
         <div class="auth-buttons">
-            <button class="tab">Sign Up</button>
-            <button class="tab active">Log In</button>
+            <button onclick="window.location = 'signup.html'" class="tab">Sign Up</button>
+            <a href="login.html" class="tab active">Log In</a>
         </div>
     </nav>
 
@@ -387,8 +392,10 @@
         <div class="mobile-menu-popup" id="mobileMenu">
             <a href="#home" class="popup-item" onclick="toggleMenu()"><i class="fa-solid fa-house"></i> Home</a>
             <a href="#shop" class="popup-item highlight" onclick="toggleMenu()"><i class="fa-solid fa-store"></i> Tindahan</a>
-            <a href="#learn" class="popup-item" onclick="toggleMenu()"><i class="fa-solid fa-book-open"></i> Matuto</a>
-            <a href="#community" class="popup-item" onclick="toggleMenu()"><i class="fa-solid fa-users"></i> Komunidad</a>
+            <a href="#pagsasaka" class="popup-item" onclick="toggleMenu()"><i class="fa-solid fa-wheat-awn"></i> Pagsasaka</a>
+            <a href="#ulat" class="popup-item" onclick="toggleMenu()"><i class="fa-solid fa-chart-line"></i> Ulat</a>
+            <a href="#tulong" class="popup-item" onclick="toggleMenu()"><i class="fa-solid fa-circle-info"></i> Tulong at Impormasyon</a>
+            <a href="#admin" class="popup-item" onclick="toggleMenu()"><i class="fa-solid fa-user-gear"></i> Admin</a>
         </div>
         <button class="mobile-fab-btn" onclick="toggleMenu()">
             <i class="fa-solid fa-bars"></i>

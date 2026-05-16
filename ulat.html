@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fil">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ani.Aklan | Sentro ng Ulat</title>
+    
+    <link rel="icon" type="image/png" sizes="64x64" href="assets/images/logo/logo2.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;1,600&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-green: #3B6D11;
+            --harvest-green: #639922;
+            --light-field: #EAF3DE;
+            --amber: #FFBF00;
+            --soil: #5D4037;
+            --cream: #FCFDF9;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.8);
+            --shadow: 0 20px 40px rgba(59, 109, 17, 0.15);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--cream);
+            color: var(--soil);
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 0.8rem 5%; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(99, 153, 34, 0.1);
+        }
+
+        .logo { display: flex; align-items: center; gap: 15px; flex: 1; }
+        .logo img { height: 50px; width: auto; }
+
+        .nav-menu { display: flex; gap: 2rem; list-style: none; flex: 2; justify-content: center; }
+        .nav-menu a { text-decoration: none; color: var(--soil); font-weight: 600; transition: 0.3s; }
+        .nav-menu a:hover, .nav-menu a.active-nav { color: var(--harvest-green); }
+
+        .auth-buttons { display: flex; align-items: center; gap: 10px; flex: 1; justify-content: flex-end; }
+
+        /* --- Hub Header --- */
+        .hub-header {
+            padding: 8rem 10% 2rem;
+            background: linear-gradient(135deg, #FFF9E6 0%, #fff 100%);
+            text-align: center;
+        }
+        .hub-header h1 { font-family: 'Lora', serif; font-size: 3rem; color: var(--soil); margin-bottom: 0.5rem; }
+        
+        .sub-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem auto 0;
+        }
+
+        .tab {
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            border: 2px solid var(--light-field);
+            background: var(--white);
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--soil);
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tab.active, .tab:hover {
+            background: var(--soil);
+            color: white;
+            border-color: var(--soil);
+            box-shadow: var(--shadow);
+        }
+
+        /* --- Content Sections --- */
+        .content-section {
+            padding: 4rem 10% 8rem;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+        .content-section.active-section { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-family: 'Lora', serif;
+            font-size: 2.2rem;
+            color: var(--soil);
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--harvest-green);
+            padding-left: 15px;
+        }
+
+        /* --- Report Form Styling --- */
+        .report-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .form-group { margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 8px; }
+        .form-group label { font-weight: 700; font-size: 0.95rem; }
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 1rem;
+            border: 2px solid var(--light-field);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--harvest-green);
+        }
+
+        .submit-btn {
+            background: var(--harvest-green); color: white; border: none;
+            padding: 1rem 2rem; border-radius: 12px; font-weight: 700;
+            cursor: pointer; transition: 0.3s; font-size: 1rem; margin-top: 1rem;
+        }
+        .submit-btn:hover { background: var(--deep-green); }
+
+        /* --- Reports Feed/Grid --- */
+        .reports-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .report-card {
+            background: white; border-radius: 20px; padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02); border: 1px solid var(--light-field);
+        }
+        .status-badge {
+            display: inline-block; padding: 4px 12px; border-radius: 50px;
+            font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem;
+        }
+        .status-pending { background: #FFF3E0; color: #E65100; }
+        .status-investigating { background: #E3F2FD; color: #0D47A1; }
+
+        /* --- MOBILE FLOATING MENU --- */
+        .mobile-fab-container {
+            display: none; position: fixed; bottom: 30px; right: 30px; z-index: 3000;
+            flex-direction: column; align-items: flex-end; gap: 15px;
+        }
+        .mobile-fab-btn {
+            width: 60px; height: 60px; background: var(--deep-green); color: white; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; font-size: 1.5rem; border: none;
+        }
+        .mobile-menu-popup {
+            display: none; flex-direction: column; background: white; padding: 15px;
+            border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); gap: 10px; min-width: 180px;
+        }
+        .mobile-menu-popup.active { display: flex; }
+        .popup-item { text-decoration: none; color: var(--soil); font-weight: 700; padding: 12px 15px; border-radius: 12px; display: flex; align-items: center; gap: 12px; }
+
+        @media (max-width: 768px) {
+            .mobile-fab-container { display: flex; }
+            nav, .nav-menu, .auth-buttons { display: none; }
+            .hub-header { padding: 6rem 5% 2rem; }
+            .hub-header h1 { font-size: 2.2rem; }
+            .sub-tabs { flex-direction: column; gap: 0.5rem; }
+            .content-section { padding: 2rem 5% 6rem; }
+            .report-form { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <img src="assets/images/logo/logo2.png" alt="Ani.Aklan Logo">
+            <img src="assets/images/logo/logo3.png" alt="Secondary Logo">
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#shop">Tindahan</a></li>
+            <li><a href="pagsasaka.html">Pagsasaka</a></li>
+            <li><a href="ulat.html" class="active-nav">Ulat</a></li>
+            <li><a href="index.html#tulong">Tulong at Impormasyon</a></li>
+            <li><a href="index.html#admin">Admin</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <button onclick="window.location = 'signup.html'" class="tab">Sign Up</button>
+            <a href="login.html" class="tab active">Log In</a>
+        </div>
+    </nav>
+
+    <div class="mobile-fab-container">
+        <div class="mobile-menu-popup" id="mobileMenu">
+            <a href="index.html#home" class="popup-item"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="index.html#shop" class="popup-item"><i class="fa-solid fa-store"></i> Tindahan</a>
+            <a href="pagsasaka.html" class="popup-item"><i class="fa-solid fa-wheat-awn"></i> Pagsasaka</a>
+            <a href="ulat.html" class="popup-item" style="background: var(--light-field); color: var(--deep-green);"><i class="fa-solid fa-chart-line"></i> Ulat</a>
+        </div>
+        <button class="mobile-fab-btn" onclick="toggleMobileMenu()"><i class="fa-solid fa-bars"></i></button>
+    </div>
+
+    <header class="hub-header">
+        <p style="color: var(--soil); font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">Incident Reporting</p>
+        <h1>Sentro ng Ulat at Komunidad</h1>
+        <p>Ipaalam ang kasalukuyang sitwasyon ng inyong mga pananim para sa mabilis na tulong at ayuda.</p>
+
+        <div class="sub-tabs">
+            <button class="tab active" onclick="switchTab(event, 'mag-ulat')"><i class="fa-solid fa-pen-to-square"></i> Mag-ulat ng Pinsala</button>
+            <button class="tab" onclick="switchTab(event, 'tingnan-ulat')"><i class="fa-solid fa-eye"></i> Tingnan ang mga Ulat</button>
+        </div>
+    </header>
+
+    <section id="mag-ulat" class="content-section active-section">
+        <h2 class="section-title">Mag-ulat ng Pinsala sa Sakahan</h2>
+        <form class="report-form" onsubmit="alert('Salamat! Ang iyong ulat ay matagumpay na naipadala.'); return false;">
+            <div class="form-group">
+                <label>Pangalan ng Magsasaka</label>
+                <input type="text" placeholder="Ipasok ang buong pangalan" required>
+            </div>
+            <div class="form-group">
+                <label>Lokal na Munisipyo (Aklan)</label>
+                <select required>
+                    <option value="">Pumili ng Munisipyo...</option>
+                    <option>Kalibo</option>
+                    <option>Banga</option>
+                    <option>Libacao</option>
+                    <option>Malinao</option>
+                    <option>Madalag</option>
+                    <option>Altavas</option>
+                    <option>Numancia</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Uri ng Pinsala / Sanhi</label>
+                <select required>
+                    <option value="">Pumili ng Sanhi...</option>
+                    <option>Baha o Bagyo</option>
+                    <option>Tuyo o El Niño</option>
+                    <option>Atake ng Peste (Insects/Aphids)</option>
+                    <option>Sakit ng Halaman (Fungi/Wilt)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Detalyadong Deskripsyon</label>
+                <textarea rows="5" placeholder="Ilarawan ang lawak ng pinsala at tinatayang kabuuang lugi..." required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Ipadala ang Ulat</button>
+        </form>
+    </section>
+
+    <section id="tingnan-ulat" class="content-section">
+        <h2 class="section-title">Mga Kasalukuyang Ulat sa Komunidad</h2>
+        <p style="margin-bottom: 2rem; opacity: 0.8;">Subaybayan ang mga insidente ng pinsala sa iba't ibang dako ng Aklan.</p>
+        
+        <div class="reports-grid">
+            <div class="report-card">
+                <span class="status-badge status-pending">Pending Review</span>
+                <h3 style="font-family: 'Lora', serif; margin-bottom: 0.5rem;">Atake ng Uod sa Pechayan</h3>
+                <p style="font-size: 0.85rem; opacity: 0.6; margin-bottom: 1rem;"><i class="fa-solid fa-location-dot"></i> Banga, Aklan</p>
+                <p style="font-size: 0.95rem; line-height: 1.5;">Hinihinalang 'armyworms' ang mabilis na kumakain sa mga dahon ng pananim na pechay rito. Halos kalahating ektarya na ang apektado.</p>
+            </div>
+
+            <div class="report-card">
+                <span class="status-badge status-investigating">Under Investigation</span>
+                <h3 style="font-family: 'Lora', serif; margin-bottom: 0.5rem;">Pagbaha ng Palayan dulot ng Bagyo</h3>
+                <p style="font-size: 0.85rem; opacity: 0.6; margin-bottom: 1rem;"><i class="fa-solid fa-location-dot"></i> Libacao, Aklan</p>
+                <p style="font-size: 0.95rem; line-height: 1.5;">Ang mga bagong tanim na palay ay lubog sa tubig baha matapos ang walang humpay na pag-ulan kagabi dahil sa nagdaang bagyo.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 4rem 10%; background: var(--soil); color: var(--light-field); text-align: center; margin-top: 4rem;">
+        <h2 style="font-family: 'Lora', serif; margin-bottom: 1rem;">Ani.Aklan</h2>
+        <p>© 2026 Ani.Aklan Online Marketplace. Padayon sa pag-uswag, Aklan!</p>
+    </footer>
+
+    <script>
+        function switchTab(evt, sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.remove('active-section'));
+
+            const tabs = document.querySelectorAll('.sub-tabs .tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            document.getElementById(sectionId).classList.add('active-section');
+            evt.currentTarget.classList.add('active');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

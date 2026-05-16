@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="fil">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ani.Aklan | Sentro ng Pagsasaka</title>
+    
+    <link rel="icon" type="image/png" sizes="64x64" href="assets/images/logo/logo2.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;1,600&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-green: #3B6D11;
+            --harvest-green: #639922;
+            --light-field: #EAF3DE;
+            --amber: #FFBF00;
+            --soil: #5D4037;
+            --cream: #FCFDF9;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.8);
+            --shadow: 0 20px 40px rgba(59, 109, 17, 0.15);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--cream);
+            color: var(--soil);
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 0.8rem 5%; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(99, 153, 34, 0.1);
+        }
+
+        .logo { display: flex; align-items: center; gap: 15px; flex: 1; }
+        .logo img { height: 50px; width: auto; transition: transform 0.3s ease; }
+        .logo img:hover { transform: scale(1.05); }
+
+        .nav-menu { display: flex; gap: 2rem; list-style: none; flex: 2; justify-content: center; }
+        .nav-menu a { text-decoration: none; color: var(--soil); font-weight: 600; transition: 0.3s; }
+        .nav-menu a:hover, .nav-menu a.active-nav { color: var(--harvest-green); }
+
+        .auth-buttons { display: flex; align-items: center; gap: 10px; flex: 1; justify-content: flex-end; }
+
+        /* --- Sub-navigation Tabs (The Hub Menu) --- */
+        .hub-header {
+            padding: 8rem 10% 2rem;
+            background: linear-gradient(135deg, var(--light-field) 0%, #fff 100%);
+            text-align: center;
+        }
+        .hub-header h1 { font-family: 'Lora', serif; font-size: 3rem; color: var(--deep-green); margin-bottom: 0.5rem; }
+        
+        .sub-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem auto 0;
+            flex-wrap: wrap;
+            max-width: 1200px;
+        }
+
+        .tab {
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            border: 2px solid var(--light-field);
+            background: var(--white);
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--soil);
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tab.active, .tab:hover {
+            background: var(--harvest-green);
+            color: white;
+            border-color: var(--harvest-green);
+            box-shadow: 0 8px 20px rgba(99, 153, 34, 0.2);
+        }
+
+        /* --- Dynamic Content Sections --- */
+        .content-section {
+            padding: 4rem 10% 8rem;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+        .content-section.active-section { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-family: 'Lora', serif;
+            font-size: 2.2rem;
+            color: var(--deep-green);
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--amber);
+            padding-left: 15px;
+        }
+
+        /* --- Table Layout Styling --- */
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+        .calendar-table th, .calendar-table td { padding: 1.2rem; text-align: left; border-bottom: 1px solid var(--light-field); }
+        .calendar-table th { background: var(--deep-green); color: white; font-weight: 600; }
+        .calendar-table tr:hover { background-color: rgba(234, 243, 222, 0.3); }
+
+        /* --- Grid Information Cards --- */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        .info-card {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid rgba(99, 153, 34, 0.05);
+            transition: 0.3s;
+        }
+        .info-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+        .info-card h3 { font-family: 'Lora', serif; color: var(--soil); margin: 1rem 0 0.5rem; font-size: 1.4rem; }
+        .info-card p { opacity: 0.8; line-height: 1.6; font-size: 0.95rem; }
+        
+        .icon-box {
+            width: 50px; height: 50px;
+            background: var(--light-field);
+            color: var(--deep-green);
+            border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        /* --- Alert/Warning Cards (Typhoon) --- */
+        .alert-card {
+            background: #FFF9E6;
+            border-left: 5px solid var(--amber);
+            padding: 1.5rem;
+            border-radius: 0 20px 20px 0;
+            margin-bottom: 2rem;
+            display: flex; gap: 15px; align-items: flex-start;
+        }
+        .alert-card i { color: var(--amber); font-size: 1.5rem; margin-top: 3px; }
+
+        /* --- Checklist Styling --- */
+        .checklist { list-style: none; margin-top: 1rem; }
+        .checklist li { display: flex; gap: 10px; align-items: center; margin-bottom: 0.8rem; font-weight: 600; }
+        .checklist li i { color: var(--harvest-green); }
+
+        /* --- MOBILE FLOATING MENU --- */
+        .mobile-fab-container {
+            display: none; position: fixed; bottom: 30px; right: 30px; z-index: 3000;
+            flex-direction: column; align-items: flex-end; gap: 15px;
+        }
+        .mobile-fab-btn {
+            width: 60px; height: 60px; background: var(--deep-green); color: white; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; font-size: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); cursor: pointer; border: none;
+        }
+        .mobile-menu-popup {
+            display: none; flex-direction: column; background: white; padding: 15px;
+            border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); gap: 10px;
+            min-width: 180px; border: 1px solid var(--light-field);
+        }
+        .mobile-menu-popup.active { display: flex; }
+        .popup-item { text-decoration: none; color: var(--soil); font-weight: 700; padding: 12px 15px; border-radius: 12px; display: flex; align-items: center; gap: 12px; }
+        .popup-item:hover { background: var(--light-field); color: var(--deep-green); }
+
+        /* --- MOBILE RESPONSIVE FIXES --- */
+        @media (max-width: 768px) {
+            * { max-width: 100vw; }
+            .mobile-fab-container { display: flex; }
+            nav { padding: 0.6rem 4%; }
+            .logo img { height: 35px; }
+            .nav-menu { display: none; }
+            .auth-buttons { display: none; }
+            
+            .hub-header { padding: 6rem 5% 2rem; }
+            .hub-header h1 { font-size: 2.2rem; }
+            .sub-tabs { gap: 0.5rem; }
+            .tab { padding: 0.6rem 1rem; font-size: 0.85rem; }
+            
+            .content-section { padding: 2rem 5% 6rem; }
+            .section-title { font-size: 1.6rem; }
+            
+            .calendar-table { display: block; overflow-x: auto; white-space: nowrap; }
+            .info-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <img src="assets/images/logo/logo2.png" alt="Ani.Aklan Logo">
+            <img src="assets/images/logo/logo3.png" alt="Secondary Logo">
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#shop">Tindahan</a></li>
+            <li><a href="pagsasaka.html" class="active-nav">Pagsasaka</a></li>
+            <li><a href="index.html#ulat">Ulat</a></li>
+            <li><a href="index.html#tulong">Tulong at Impormasyon</a></li>
+            <li><a href="index.html#admin">Admin</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <button onclick="window.location = 'signup.html'" class="tab">Sign Up</button>
+            <a href="login.html" class="tab active">Log In</a>
+        </div>
+    </nav>
+
+    <div class="mobile-fab-container">
+        <div class="mobile-menu-popup" id="mobileMenu">
+            <a href="index.html#home" class="popup-item"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="index.html#shop" class="popup-item"><i class="fa-solid fa-store"></i> Tindahan</a>
+            <a href="pagsasaka.html" class="popup-item" style="background: var(--light-field); color: var(--deep-green);"><i class="fa-solid fa-wheat-awn"></i> Pagsasaka</a>
+            <a href="index.html#ulat" class="popup-item"><i class="fa-solid fa-chart-line"></i> Ulat</a>
+            <a href="index.html#tulong" class="popup-item"><i class="fa-solid fa-circle-info"></i> Impormasyon</a>
+        </div>
+        <button class="mobile-fab-btn" onclick="toggleMobileMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+
+    <header class="hub-header">
+        <p style="color: var(--harvest-green); font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">Farmer's Portal</p>
+        <h1>Sentro ng Kaalaman sa Pagsasaka</h1>
+        <p>Mga gabay at solusyong siyentipiko para sa masaganang ani ng mga magsasakang Aklanon.</p>
+
+        <div class="sub-tabs">
+            <button class="tab active" onclick="switchTab(event, 'kalendaryo')"><i class="fa-solid fa-calendar-days"></i> Kalendaryo ng Pagtatanim</button>
+            <button class="tab" onclick="switchTab(event, 'gabay-pananim')"><i class="fa-solid fa-seedling"></i> Gabay sa Pananim</button>
+            <button class="tab" onclick="switchTab(event, 'peste-sakit')"><i class="fa-solid fa-bug"></i> Peste at Sakit</button>
+            <button class="tab" onclick="switchTab(event, 'pataba-lupa')"><i class="fa-solid fa-faucet-drip"></i> Pataba at Lupa</button>
+            <button class="tab" onclick="switchTab(event, 'pagkatapos-bagyo')"><i class="fa-solid fa-cloud-showers-heavy"></i> Pagkatapos ng Bagyo</button>
+        </div>
+    </header>
+
+    <section id="kalendaryo" class="content-section active-section">
+        <h2 class="section-title">Kalendaryo ng Pagtatanim sa Panahon ng Pananim</h2>
+        <p style="margin-bottom: 2rem; opacity: 0.8;">Gabay batay sa klimang Aklan upang masigurado ang kalidad at tamang tyempo ng inyong mga pananim.</p>
+        <table class="calendar-table">
+            <thead>
+                <tr>
+                    <th>Uri ng Pananim</th>
+                    <th>Tamang Buwan ng Pagtatanim</th>
+                    <th>Inaasahang Buwan ng Ani</th>
+                    <th>Uri ng Klima / Paalala</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Gulay (Kalabasa, Sitaw, Talong)</strong></td>
+                    <td>Oktubre - Pebrero</td>
+                    <td>Enero - Mayo</td>
+                    <td>Mas mainam itanim kapag malamig ang gabi at papasok ang tag-araw.</td>
+                </tr>
+                <tr>
+                    <td><strong>Prutas (Saging na Saba, Pakwan)</strong></td>
+                    <td>Mayo - Hulyo</td>
+                    <td>Pagkaraan ng 8-10 na buwan</td>
+                    <td>Nangangailangan ng sapat na ulan sa unang yugto ng paglaki.</td>
+                </tr>
+                <tr>
+                    <td><strong>Root Crops (Luya, Gabi)</strong></td>
+                    <td>Marso - Mayo</td>
+                    <td>Nobyembre - Enero</td>
+                    <td>Itanim bago magsimula ang mahabang tag-ulan para sa magandang ugat.</td>
+                </tr>
+                <tr>
+                    <td><strong>Herbs at Dahon (Pechay, Mustasa)</strong></td>
+                    <td>Buong Taon (Year-Round)</td>
+                    <td>30-45 Araw Pagkatanim</td>
+                    <td>Madaling palakihin basta't may sapat na proteksyon sa matinding sikat ng araw.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="gabay-pananim" class="content-section">
+        <h2 class="section-title">Gabay sa Pananim (Crop Management Guide)</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="icon-box"><i class="fa-solid fa-seedling"></i></div>
+                <h3>Paghahanda ng Binhi</h3>
+                <p>Pumili lamang ng mga sertipikadong binhi. Isagawa ang 'floating test' sa tubig—itapon ang mga lumulutang na binhi dahil baog o mahina ang mga ito.</p>
+            </div>
+            <div class="info-card">
+                <div class="icon-box"><i class="fa-solid fa-hands-holding-child"></i></div>
+                <h3>Pangangalaga sa Punlaan</h3>
+                <p>Siguraduhing nakakakuha ng sapat na sikat ng araw ang punlaan ngunit protektado mula sa mga peste at malalakas na patak ng ulan gamit ang net.</p>
+            </div>
+            <div class="info-card">
+                <div class="icon-box"><i class="fa-solid fa-scissors"></i></div>
+                <h3>Pruning at Pagpapasariwa</h3>
+                <p>Tanggalin ang mga matatanda, tuyo, o may sakit na dahon upang mapunta ang enerhiya ng halaman sa pagpapatubo ng mga bagong bunga at sanga.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="peste-sakit" class="content-section">
+        <h2 class="section-title">Gabay sa Peste at Sakit</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="icon-box" style="background:#FFEBEE; color:#C62828;"><i class="fa-solid fa-spider"></i></div>
+                <h3>Uod at Aphids (Insects)</h3>
+                <p><strong>Solusyon:</strong> Gumamit ng organic neem oil leaves spray o pinaghalong sili, bawang, at kaunting sabon panlaba bilang natural na pamatay-peste.</p>
+            </div>
+            <div class="info-card">
+                <div class="icon-box" style="background:#FFEBEE; color:#C62828;"><i class="fa-solid fa-bacteria"></i></div>
+                <h3>Bacterial Wilt & Fungi</h3>
+                <p><strong>Solusyon:</strong> Iwasan ang labis na pagdidilig kapag barado ang lupa. Panatilihin ang maayos na distansya ng bawat halaman (proper spacing) upang makadaloy ang hangin.</p>
+            </div>
+            <div class="info-card">
+                <div class="icon-box" style="background:#E8F5E9; color:#2E7D32;"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>Integrated Pest Management</h3>
+                <p>Ipatupad ang <em>Crop Rotation</em> o pagpapalit-palit ng uri ng pananim bawat season upang maputol ang siklo ng buhay ng mga peste sa lupa.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pataba-lupa" class="content-section">
+        <h2 class="section-title">Tips sa Pataba at Lupa</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="icon-box" style="background:#EFEBE9; color:#4E342E;"><i class="fa-solid fa-mountain"></i></div>
+                <h3>Pagpapataba ng Lupa (Soil Conditioning)</h3>
+                <p>Bago magtanim, ihalo ang mga tuyong dumi ng baka o manok, vermicast (tae ng ulalo), at carbonized rice hull upang mapataas ang nutrient content ng lupa.</p>
+            </div>
+            <div class="info-card">
+                <div class="icon-box" style="background:#EAF3DE; color(--deep-green);"><i class="fa-solid fa-flask"></i></div>
+                <h3>Natural Compost at Kahalagahan ng pH</h3>
+                <p>Gumawa ng sariling compost gamit ang mga pinagbalatan ng gulay at prutas. Huwag gumamit ng labis na kemikal na pataba upang hindi umasim ang lupa.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pagkatapos-bagyo" class="content-section">
+        <h2 class="section-title">Gabay Pagkatapos ng Bagyo</h2>
+        
+        <div class="alert-card">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <div>
+                <h4 style="font-weight: 800; margin-bottom: 5px;">Agarang Aksyon para sa Kaligtasan ng Pananim</h4>
+                <p>Ang mabilisang pagkilos sa loob ng unang 48 oras pagkatapos ng baha o bagyo ay maaaring magsalba sa natitirang bahagi ng iyong puhunan at pananim.</p>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="icon-box"><i class="fa-solid fa-droplet-slash"></i></div>
+                <h3>1. Pagpapatuyo (Drainage System)</h3>
+                <p>Gumawa agad ng mga kanal o trenches upang mabilis na maalis ang stagnant o nakaimbak na tubig sa paligid ng mga ugat upang maiwasan ang "root rot".</p>
+            </div>
+            <div class="info-card">
+                <div class="icon-box"><i class="fa-solid fa-sheet-plastic"></i></div>
+                <h3>2. Pagpapatayo at Suporta</h3>
+                <p>Dahan-dahang itayo ang mga natumbang halaman at lagyan ito ng tukod (bamboo stakes) upang muling bumaon ang mga ugat sa lupa habang malambot pa ito.</p>
+            </div>
+            <div class="info-card">
+                <div class="icon-box"><i class="fa-solid fa-spray-can-sparkles"></i></div>
+                <h3>3. Proteksyon sa Sakit</h3>
+                <p>Mag-spray ng mild organic fungicide pagkatapos ng ulan dahil ang sugat ng halaman mula sa hangin ay madaling pasukin ng mga fungal diseases at amag.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 4rem 10%; background: var(--soil); color: var(--light-field); text-align: center; margin-top: 4rem;">
+        <h2 style="font-family: 'Lora', serif; margin-bottom: 1rem;">Ani.Aklan</h2>
+        <p>© 2026 Ani.Aklan Online Marketplace. Padayon sa pag-uswag, Aklan!</p>
+    </footer>
+
+    <script>
+        // Smooth Sub-tab switching engine
+        function switchTab(evt, sectionId) {
+            // Hide all structural sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.remove('active-section'));
+
+            // Deactivate all sub-navigation buttons
+            const tabs = document.querySelectorAll('.sub-tabs .tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Show target section and highlight selected button
+            document.getElementById(sectionId).classList.add('active-section');
+            evt.currentTarget.classList.add('active');
+            
+            // Scroll neatly to view smooth desktop transition
+            window.scrollTo({ top: document.querySelector('.hub-header').offsetTop + 180, behavior: 'smooth' });
+        }
+
+        // Toggle mobile fab slide menu view
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>

@@ -115,19 +115,6 @@
             padding-left: 15px;
         }
 
-        /* --- Table Layout Styling --- */
-        .calendar-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-        }
-        .calendar-table th, .calendar-table td { padding: 1.2rem; text-align: left; border-bottom: 1px solid var(--light-field); }
-        .calendar-table th { background: var(--deep-green); color: white; font-weight: 600; }
-        .calendar-table tr:hover { background-color: rgba(234, 243, 222, 0.3); }
-
         /* --- Grid Information Cards --- */
         .info-grid {
             display: grid;
@@ -137,41 +124,24 @@
         .info-card {
             background: var(--white);
             border-radius: 25px;
-            padding: 2rem;
+            padding: 0rem;
             box-shadow: 0 10px 30px rgba(0,0,0,0.03);
             border: 1px solid rgba(99, 153, 34, 0.05);
             transition: 0.3s;
+            overflow: hidden;
         }
         .info-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
-        .info-card h3 { font-family: 'Lora', serif; color: var(--soil); margin: 1rem 0 0.5rem; font-size: 1.4rem; }
+        .info-card img { width: 100%; height: 200px; object-fit: cover; }
+        .info-card-content { padding: 1.5rem; }
+        .info-card h3 { font-family: 'Lora', serif; color: var(--soil); margin: 0rem 0 0.5rem; font-size: 1.4rem; }
         .info-card p { opacity: 0.8; line-height: 1.6; font-size: 0.95rem; }
-        
-        .icon-box {
-            width: 50px; height: 50px;
-            background: var(--light-field);
-            color: var(--deep-green);
-            border-radius: 15px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.3rem;
-        }
 
-        /* --- Alert/Warning Cards (Typhoon) --- */
-        .alert-card {
-            background: #FFF9E6;
-            border-left: 5px solid var(--amber);
-            padding: 1.5rem;
-            border-radius: 0 20px 20px 0;
-            margin-bottom: 2rem;
-            display: flex; gap: 15px; align-items: flex-start;
-        }
-        .alert-card i { color: var(--amber); font-size: 1.5rem; margin-top: 3px; }
+        /* --- Custom styling for Guides/Lists --- */
+        .guide-list { list-style: none; margin-top: 1rem; }
+        .guide-list li { padding: 0.5rem 0; display: flex; align-items: center; gap: 10px; border-bottom: 1px dashed rgba(99,153,34,0.1); }
+        .guide-list li i { color: var(--harvest-green); }
 
-        /* --- Checklist Styling --- */
-        .checklist { list-style: none; margin-top: 1rem; }
-        .checklist li { display: flex; gap: 10px; align-items: center; margin-bottom: 0.8rem; font-weight: 600; }
-        .checklist li i { color: var(--harvest-green); }
-
-        /* --- MOBILE FLOATING MENU --- */
+        /* --- MOBILE FLOATING MENU (As per screenshot) --- */
         .mobile-fab-container {
             display: none; position: fixed; bottom: 30px; right: 30px; z-index: 3000;
             flex-direction: column; align-items: flex-end; gap: 15px;
@@ -182,13 +152,32 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.2); cursor: pointer; border: none;
         }
         .mobile-menu-popup {
-            display: none; flex-direction: column; background: white; padding: 15px;
-            border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); gap: 10px;
-            min-width: 180px; border: 1px solid var(--light-field);
+            display: none; flex-direction: column; background: white; padding: 25px 20px;
+            border-radius: 35px; box-shadow: 0 15px 45px rgba(0,0,0,0.12); gap: 4px;
+            min-width: 240px; border: 1px solid rgba(99, 153, 34, 0.05);
         }
         .mobile-menu-popup.active { display: flex; }
-        .popup-item { text-decoration: none; color: var(--soil); font-weight: 700; padding: 12px 15px; border-radius: 12px; display: flex; align-items: center; gap: 12px; }
-        .popup-item:hover { background: var(--light-field); color: var(--deep-green); }
+        
+        .popup-item { 
+            text-decoration: none; 
+            color: var(--soil); 
+            font-weight: 700; 
+            padding: 12px 16px; 
+            border-radius: 20px; 
+            display: flex; 
+            align-items: center; 
+            gap: 18px; 
+            font-size: 1.2rem; 
+            transition: 0.2s ease; 
+        }
+        .popup-item i { width: 24px; text-align: center; font-size: 1.25rem; }
+        .popup-item:hover { background: rgba(99, 153, 34, 0.05); }
+        
+        /* Matching the green active background from screenshot */
+        .popup-item.active-mobile {
+            background-color: #EAF3DE;
+            color: #3B6D11;
+        }
 
         /* --- MOBILE RESPONSIVE FIXES --- */
         @media (max-width: 768px) {
@@ -197,7 +186,17 @@
             nav { padding: 0.6rem 4%; }
             .logo img { height: 35px; }
             .nav-menu { display: none; }
-            .auth-buttons { display: none; }
+            
+            .auth-buttons { 
+                display: flex; 
+                flex: 1; 
+                justify-content: flex-end; 
+                gap: 6px; 
+            }
+            .auth-buttons .tab {
+                padding: 0.5rem 0.9rem;
+                font-size: 0.8rem;
+            }
             
             .hub-header { padding: 6rem 5% 2rem; }
             .hub-header h1 { font-size: 2.2rem; }
@@ -207,7 +206,6 @@
             .content-section { padding: 2rem 5% 6rem; }
             .section-title { font-size: 1.6rem; }
             
-            .calendar-table { display: block; overflow-x: auto; white-space: nowrap; }
             .info-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -220,12 +218,12 @@
             <img src="assets/images/logo/logo3.png" alt="Secondary Logo">
         </div>
         <ul class="nav-menu">
-            <li><a href="index.html#home">Home</a></li>
-            <li><a href="index.html#shop">Tindahan</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="tindahan.html">Tindahan</a></li>
             <li><a href="pagsasaka.html" class="active-nav">Pagsasaka</a></li>
-            <li><a href="index.html#ulat">Ulat</a></li>
-            <li><a href="index.html#tulong">Tulong at Impormasyon</a></li>
-            <li><a href="index.html#admin">Admin</a></li>
+            <li><a href="ulat.html">Ulat</a></li>
+            <li><a href="tulong.html">Tulong at Impormasyon</a></li>
+            <li><a href="admin.html">Admin</a></li>
         </ul>
         <div class="auth-buttons">
             <button onclick="window.location = 'signup.html'" class="tab">Sign Up</button>
@@ -235,11 +233,16 @@
 
     <div class="mobile-fab-container">
         <div class="mobile-menu-popup" id="mobileMenu">
-            <a href="index.html#home" class="popup-item"><i class="fa-solid fa-house"></i> Home</a>
-            <a href="index.html#shop" class="popup-item"><i class="fa-solid fa-store"></i> Tindahan</a>
-            <a href="pagsasaka.html" class="popup-item" style="background: var(--light-field); color: var(--deep-green);"><i class="fa-solid fa-wheat-awn"></i> Pagsasaka</a>
-            <a href="index.html#ulat" class="popup-item"><i class="fa-solid fa-chart-line"></i> Ulat</a>
-            <a href="index.html#tulong" class="popup-item"><i class="fa-solid fa-circle-info"></i> Impormasyon</a>
+            <a href="index.html" class="popup-item"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="tindahan.html" class="popup-item"><i class="fa-solid fa-store"></i> Tindahan</a>
+            <a href="pagsasaka.html" class="popup-item active-mobile"><i class="fa-solid fa-wheat-awn"></i> Pagsasaka</a>
+            <a href="ulat.html" class="popup-item"><i class="fa-solid fa-chart-line"></i> Ulat</a>
+            <a href="tulong.html" class="popup-item"><i class="fa-solid fa-circle-info"></i> Impormasyon</a>
+            
+            <hr style="border: none; border-top: 1px solid rgba(99, 153, 34, 0.1); margin: 6px 0;">
+            
+            <a href="signup.html" class="popup-item" style="color: var(--soil);"><i class="fa-solid fa-user-plus"></i> Sign Up</a>
+            <a href="login.html" class="popup-item" style="color: var(--soil);"><i class="fa-solid fa-right-to-bracket"></i> Log In</a>
         </div>
         <button class="mobile-fab-btn" onclick="toggleMobileMenu()">
             <i class="fa-solid fa-bars"></i>
@@ -247,77 +250,55 @@
     </div>
 
     <header class="hub-header">
-        <p style="color: var(--harvest-green); font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">Farmer's Portal</p>
-        <h1>Sentro ng Kaalaman sa Pagsasaka</h1>
-        <p>Mga gabay at solusyong siyentipiko para sa masaganang ani ng mga magsasakang Aklanon.</p>
+        <p style="color: var(--harvest-green); font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">Gabay sa Bukid</p>
+        <h1>Sentro ng Pagsasaka</h1>
+        <p>Mga impormasyon at gabay para sa masaganang ani ng mga magsasakang Aklanon.</p>
 
         <div class="sub-tabs">
             <button class="tab active" onclick="switchTab(event, 'kalendaryo')"><i class="fa-solid fa-calendar-days"></i> Kalendaryo ng Pagtatanim</button>
             <button class="tab" onclick="switchTab(event, 'gabay-pananim')"><i class="fa-solid fa-seedling"></i> Gabay sa Pananim</button>
-            <button class="tab" onclick="switchTab(event, 'peste-sakit')"><i class="fa-solid fa-bug"></i> Peste at Sakit</button>
-            <button class="tab" onclick="switchTab(event, 'pataba-lupa')"><i class="fa-solid fa-faucet-drip"></i> Pataba at Lupa</button>
-            <button class="tab" onclick="switchTab(event, 'pagkatapos-bagyo')"><i class="fa-solid fa-cloud-showers-heavy"></i> Pagkatapos ng Bagyo</button>
+            <button class="tab" onclick="switchTab(event, 'peste-sakit')"><i class="fa-solid fa-bug"></i> Gabay sa Peste at Sakit</button>
+            <button class="tab" onclick="switchTab(event, 'pataba-lupa')"><i class="fa-solid fa-flask"></i> Tips sa Pataba at Lupa</button>
+            <button class="tab" onclick="switchTab(event, 'pagkatapos-bagyo')"><i class="fa-solid fa-cloud-showers-heavy"></i> Gabay Pagkatapos ng Bagyo</button>
         </div>
     </header>
 
     <section id="kalendaryo" class="content-section active-section">
-        <h2 class="section-title">Kalendaryo ng Pagtatanim sa Panahon ng Pananim</h2>
-        <p style="margin-bottom: 2rem; opacity: 0.8;">Gabay batay sa klimang Aklan upang masigurado ang kalidad at tamang tyempo ng inyong mga pananim.</p>
-        <table class="calendar-table">
-            <thead>
-                <tr>
-                    <th>Uri ng Pananim</th>
-                    <th>Tamang Buwan ng Pagtatanim</th>
-                    <th>Inaasahang Buwan ng Ani</th>
-                    <th>Uri ng Klima / Paalala</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Gulay (Kalabasa, Sitaw, Talong)</strong></td>
-                    <td>Oktubre - Pebrero</td>
-                    <td>Enero - Mayo</td>
-                    <td>Mas mainam itanim kapag malamig ang gabi at papasok ang tag-araw.</td>
-                </tr>
-                <tr>
-                    <td><strong>Prutas (Saging na Saba, Pakwan)</strong></td>
-                    <td>Mayo - Hulyo</td>
-                    <td>Pagkaraan ng 8-10 na buwan</td>
-                    <td>Nangangailangan ng sapat na ulan sa unang yugto ng paglaki.</td>
-                </tr>
-                <tr>
-                    <td><strong>Root Crops (Luya, Gabi)</strong></td>
-                    <td>Marso - Mayo</td>
-                    <td>Nobyembre - Enero</td>
-                    <td>Itanim bago magsimula ang mahabang tag-ulan para sa magandang ugat.</td>
-                </tr>
-                <tr>
-                    <td><strong>Herbs at Dahon (Pechay, Mustasa)</strong></td>
-                    <td>Buong Taon (Year-Round)</td>
-                    <td>30-45 Araw Pagkatanim</td>
-                    <td>Madaling palakihin basta't may sapat na proteksyon sa matinding sikat ng araw.</td>
-                </tr>
-            </tbody>
-        </table>
+        <h2 class="section-title">Kalendaryo ng Pagtatanim</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="info-card-content">
+                    <h3>Tag-ulan (Hunyo - Nobyembre)</h3>
+                    <p style="color: var(--harvest-green); font-weight: 600; margin-bottom: 0.5rem;">Panahon ng Palay</p>
+                    <p>Ito ang pinakamainam na buwan para sa pagtatanim ng palay sa Aklan dahil sa sapat na supply ng tubig-ulan. Angkop din para sa mga halamang-ugat tulad ng gabi.</p>
+                </div>
+            </div>
+            <div class="info-card">
+                <div class="info-card-content">
+                    <h3>Tag-araw (Disyembre - Mayo)</h3>
+                    <p style="color: var(--amber); font-weight: 600; margin-bottom: 0.5rem;">Panahon ng High-Value Crops</p>
+                    <p>Mainam magtanim ng mais, saging, pakwan, at iba't ibang gulay tulad ng talong at sitaw na hindi nangangailangan ng labis na tubig.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="gabay-pananim" class="content-section">
-        <h2 class="section-title">Gabay sa Pananim (Crop Management Guide)</h2>
+        <h2 class="section-title">Gabay sa Pananim</h2>
         <div class="info-grid">
             <div class="info-card">
-                <div class="icon-box"><i class="fa-solid fa-seedling"></i></div>
-                <h3>Paghahanda ng Binhi</h3>
-                <p>Pumili lamang ng mga sertipikadong binhi. Isagawa ang 'floating test' sa tubig—itapon ang mga lumulutang na binhi dahil baog o mahina ang mga ito.</p>
+                <img src="assets/images/pagsasaka/palay.jpg" alt="Pagtatanim ng Palay">
+                <div class="info-card-content">
+                    <h3>Pangunahing Alituntunin sa Palay</h3>
+                    <p>Siguraduhing gumamit ng de-kalidad at sertipikadong binhi. Panatilihin ang tamang agwat ng bawat punla (20cm x 20cm) upang mas maayos na makasipsip ng nutrisyon ang halaman.</p>
+                </div>
             </div>
             <div class="info-card">
-                <div class="icon-box"><i class="fa-solid fa-hands-holding-child"></i></div>
-                <h3>Pangangalaga sa Punlaan</h3>
-                <p>Siguraduhing nakakakuha ng sapat na sikat ng araw ang punlaan ngunit protektado mula sa mga peste at malalakas na patak ng ulan gamit ang net.</p>
-            </div>
-            <div class="info-card">
-                <div class="icon-box"><i class="fa-solid fa-scissors"></i></div>
-                <h3>Pruning at Pagpapasariwa</h3>
-                <p>Tanggalin ang mga matatanda, tuyo, o may sakit na dahon upang mapunta ang enerhiya ng halaman sa pagpapatubo ng mga bagong bunga at sanga.</p>
+                <img src="assets/images/pagsasaka/saging.jpg" alt="Pagtatanim ng Saging">
+                <div class="info-card-content">
+                    <h3>Pamamahala sa Sagingan</h3>
+                    <p>Putulin ang mga tuyong dahon upang maiwasan ang sakit. Mainam na mag-iwan lamang ng dalawa hanggang tatlong suwi sa bawat puno para sa mas malalaking bunga.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -326,19 +307,18 @@
         <h2 class="section-title">Gabay sa Peste at Sakit</h2>
         <div class="info-grid">
             <div class="info-card">
-                <div class="icon-box" style="background:#FFEBEE; color:#C62828;"><i class="fa-solid fa-spider"></i></div>
-                <h3>Uod at Aphids (Insects)</h3>
-                <p><strong>Solusyon:</strong> Gumamit ng organic neem oil leaves spray o pinaghalong sili, bawang, at kaunting sabon panlaba bilang natural na pamatay-peste.</p>
+                <div class="info-card-content">
+                    <h3>Rice Tungro Disease</h3>
+                    <p style="color: #d32f2f; font-weight: 600; margin-bottom: 0.5rem;">Dala ng Green Leafhopper</p>
+                    <p>Ang sakit na ito ay nagdudulot ng paninilaw at pagkabansot ng palay. Iwasan ito sa pamamagitan ng sabay-sabay na pagtatanim sa komunidad at paggamit ng mga resistant varieties.</p>
+                </div>
             </div>
             <div class="info-card">
-                <div class="icon-box" style="background:#FFEBEE; color:#C62828;"><i class="fa-solid fa-bacteria"></i></div>
-                <h3>Bacterial Wilt & Fungi</h3>
-                <p><strong>Solusyon:</strong> Iwasan ang labis na pagdidilig kapag barado ang lupa. Panatilihin ang maayos na distansya ng bawat halaman (proper spacing) upang makadaloy ang hangin.</p>
-            </div>
-            <div class="info-card">
-                <div class="icon-box" style="background:#E8F5E9; color:#2E7D32;"><i class="fa-solid fa-shield-halved"></i></div>
-                <h3>Integrated Pest Management</h3>
-                <p>Ipatupad ang <em>Crop Rotation</em> o pagpapalit-palit ng uri ng pananim bawat season upang maputol ang siklo ng buhay ng mga peste sa lupa.</p>
+                <div class="info-card-content">
+                    <h3>Uod sa Mais (Fall Armyworm)</h3>
+                    <p style="color: #d32f2f; font-weight: 600; margin-bottom: 0.5rem;">Peste sa Dahon at Bunga</p>
+                    <p>Mabilis nitong nauubos ang dahon ng mais. Mainam na mag-inspeksyon linggo-linggo at gumamit ng organikong pestisidyo o neem tree extract sa maagang yugto ng impeksyon.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -346,45 +326,28 @@
     <section id="pataba-lupa" class="content-section">
         <h2 class="section-title">Tips sa Pataba at Lupa</h2>
         <div class="info-grid">
-            <div class="info-card">
-                <div class="icon-box" style="background:#EFEBE9; color:#4E342E;"><i class="fa-solid fa-mountain"></i></div>
-                <h3>Pagpapataba ng Lupa (Soil Conditioning)</h3>
-                <p>Bago magtanim, ihalo ang mga tuyong dumi ng baka o manok, vermicast (tae ng ulalo), at carbonized rice hull upang mapataas ang nutrient content ng lupa.</p>
-            </div>
-            <div class="info-card">
-                <div class="icon-box" style="background:#EAF3DE; color(--deep-green);"><i class="fa-solid fa-flask"></i></div>
-                <h3>Natural Compost at Kahalagahan ng pH</h3>
-                <p>Gumawa ng sariling compost gamit ang mga pinagbalatan ng gulay at prutas. Huwag gumamit ng labis na kemikal na pataba upang hindi umasim ang lupa.</p>
+            <div class="info-card-content" style="background: white; border-radius: 25px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+                <h3>Organikong Pagpapataba</h3>
+                <p>Ang paggamit ng vermicompost o dumi ng hayop ay nagpapayaman sa komposisyon ng lupa sa mahabang panahon. Pinapanatili nito ang tamang moisture at microorganism na tumutulong sa halaman.</p>
+                <ul class="guide-list">
+                    <li><i class="fa-solid fa-check"></i> Maglagay ng pataba 14 araw matapos magtanim.</li>
+                    <li><i class="fa-solid fa-check"></i> Gumawa ng natural na abono gamit ang nabubulok na prutas (FFJ).</li>
+                </ul>
             </div>
         </div>
     </section>
 
     <section id="pagkatapos-bagyo" class="content-section">
         <h2 class="section-title">Gabay Pagkatapos ng Bagyo</h2>
-        
-        <div class="alert-card">
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            <div>
-                <h4 style="font-weight: 800; margin-bottom: 5px;">Agarang Aksyon para sa Kaligtasan ng Pananim</h4>
-                <p>Ang mabilisang pagkilos sa loob ng unang 48 oras pagkatapos ng baha o bagyo ay maaaring magsalba sa natitirang bahagi ng iyong puhunan at pananim.</p>
-            </div>
-        </div>
-
         <div class="info-grid">
-            <div class="info-card">
-                <div class="icon-box"><i class="fa-solid fa-droplet-slash"></i></div>
-                <h3>1. Pagpapatuyo (Drainage System)</h3>
-                <p>Gumawa agad ng mga kanal o trenches upang mabilis na maalis ang stagnant o nakaimbak na tubig sa paligid ng mga ugat upang maiwasan ang "root rot".</p>
-            </div>
-            <div class="info-card">
-                <div class="icon-box"><i class="fa-solid fa-sheet-plastic"></i></div>
-                <h3>2. Pagpapatayo at Suporta</h3>
-                <p>Dahan-dahang itayo ang mga natumbang halaman at lagyan ito ng tukod (bamboo stakes) upang muling bumaon ang mga ugat sa lupa habang malambot pa ito.</p>
-            </div>
-            <div class="info-card">
-                <div class="icon-box"><i class="fa-solid fa-spray-can-sparkles"></i></div>
-                <h3>3. Proteksyon sa Sakit</h3>
-                <p>Mag-spray ng mild organic fungicide pagkatapos ng ulan dahil ang sugat ng halaman mula sa hangin ay madaling pasukin ng mga fungal diseases at amag.</p>
+            <div class="info-card" style="padding: 2rem;">
+                <h3>Hakbang sa Pag-recover ng Pananim</h3>
+                <p style="margin: 1rem 0; line-height: 1.6;">Kapag humupa na ang baha, agad na isagawa ang mga sumusunod upang maisalba ang mga pananim:</p>
+                <ul class="guide-list">
+                    <li><i class="fa-solid fa-triangle-exclamation"></i> <strong>I-drain ang Tubig:</strong> Alisin agad ang stagnant na tubig sa mga pilapil upang hindi mabulok ang ugat.</li>
+                    <li><i class="fa-solid fa-triangle-exclamation"></i> <strong>Mag-spray ng Kontra-Sakit:</strong> Ang basang paligid ay mabilis kapitan ng bacteria; maglagay ng angkop na fungicide kung kinakailangan.</li>
+                    <li><i class="fa-solid fa-triangle-exclamation"></i> <strong>Mag-ulat ng Pinsala:</strong> Ilista at kunan ng larawan ang pinsala upang isumite sa Municipal Agriculture Office (MAGRO) para sa tulong o ayuda.</li>
+                </ul>
             </div>
         </div>
     </section>
@@ -395,25 +358,23 @@
     </footer>
 
     <script>
-        // Smooth Sub-tab switching engine
         function switchTab(evt, sectionId) {
-            // Hide all structural sections
+            // Itago lahat ng sections
             const sections = document.querySelectorAll('.content-section');
             sections.forEach(section => section.classList.remove('active-section'));
 
-            // Deactivate all sub-navigation buttons
+            // Alisin ang active state sa lahat ng tabs
             const tabs = document.querySelectorAll('.sub-tabs .tab');
             tabs.forEach(tab => tab.classList.remove('active'));
 
-            // Show target section and highlight selected button
+            // Ipakita ang napiling section at gawing active ang pinindot na tab
             document.getElementById(sectionId).classList.add('active-section');
             evt.currentTarget.classList.add('active');
-            
-            // Scroll neatly to view smooth desktop transition
+
+            // Swabe na awtomatikong pag-scroll pababa sa content area
             window.scrollTo({ top: document.querySelector('.hub-header').offsetTop + 180, behavior: 'smooth' });
         }
 
-        // Toggle mobile fab slide menu view
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
             menu.classList.toggle('active');

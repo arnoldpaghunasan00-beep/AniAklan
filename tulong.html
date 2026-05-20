@@ -154,29 +154,101 @@
         }
         .hotline-link:hover { color: var(--deep-green); text-decoration: underline; }
 
-        /* --- Mobile Responsive Fixes --- */
+        /* --- MOBILE FLOATING MENU (Eksaktong gaya ng screenshot) --- */
         .mobile-fab-container {
-            display: none; position: fixed; bottom: 30px; right: 30px; z-index: 3000;
-            flex-direction: column; align-items: flex-end; gap: 15px;
+            display: none; 
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            z-index: 3000;
+            flex-direction: column; 
+            align-items: flex-end; 
+            gap: 15px;
         }
         .mobile-fab-btn {
-            width: 60px; height: 60px; background: var(--deep-green); color: white; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center; font-size: 1.5rem; border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 60px; 
+            height: 60px; 
+            background: #2E6A12; /* Katulad ng kulay berde sa bilog na button mo */
+            color: white; 
+            border-radius: 50%;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-size: 1.6rem; 
+            border: none; 
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            cursor: pointer;
         }
         .mobile-menu-popup {
-            display: none; flex-direction: column; background: white; padding: 15px;
-            border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); gap: 10px; min-width: 180px; border: 1px solid var(--light-field);
+            display: none; 
+            flex-direction: column; 
+            background: white; 
+            padding: 25px 20px;
+            border-radius: 35px; /* Makinis at bilugan base sa screenshot mo */
+            box-shadow: 0 15px 45px rgba(0,0,0,0.12); 
+            gap: 4px; 
+            min-width: 240px; 
+            border: 1px solid rgba(99, 153, 34, 0.05);
         }
         .mobile-menu-popup.active { display: flex; }
-        .popup-item { text-decoration: none; color: var(--soil); font-weight: 700; padding: 12px 15px; border-radius: 12px; display: flex; align-items: center; gap: 12px; }
+        
+        .popup-item { 
+            text-decoration: none; 
+            color: var(--soil); 
+            font-weight: 700; 
+            padding: 12px 16px; 
+            border-radius: 20px; 
+            display: flex; 
+            align-items: center; 
+            gap: 18px; 
+            font-size: 1.2rem; 
+            transition: 0.2s ease; 
+        }
+        .popup-item i { width: 24px; text-align: center; font-size: 1.25rem; }
+        .popup-item:hover { background: rgba(99, 153, 34, 0.05); }
+        
+        /* Istilo para sa aktibong page (Impormasyon) sa mobile menu */
+        .popup-item.active-mobile {
+            background-color: #EAF3DE;
+            color: #3B6D11;
+        }
 
+        /* --- MOBILE RESPONSIVE FIXES --- */
         @media (max-width: 768px) {
+            * { max-width: 100vw; }
             .mobile-fab-container { display: flex; }
-            nav, .nav-menu, .auth-buttons { display: none; }
+            
+            /* Inaayos ang Navbar sa Taas para sa Mobile Screen */
+            nav { 
+                display: flex; 
+                padding: 0.6rem 4%; 
+                border-bottom: 1px solid rgba(99, 153, 34, 0.1);
+            }
+            .logo img { height: 35px; }
+            .nav-menu { display: none; }
+            
+            .auth-buttons { 
+                display: flex; 
+                flex: 1; 
+                justify-content: flex-end; 
+                gap: 6px; 
+            }
+            .auth-buttons .tab {
+                padding: 0.5rem 0.9rem;
+                font-size: 0.8rem;
+                border-radius: 20px;
+            }
+            .auth-buttons .tab.active {
+                background: #639922;
+                color: white;
+            }
+            
+            /* Header adjustments para sa mobile screen */
             .hub-header { padding: 6rem 5% 2rem; }
             .hub-header h1 { font-size: 2.2rem; }
             .sub-tabs { gap: 0.5rem; }
             .tab { padding: 0.6rem 1rem; font-size: 0.85rem; }
+            
             .content-section { padding: 2rem 5% 6rem; }
             .info-grid { grid-template-columns: 1fr; }
         }
@@ -190,12 +262,12 @@
             <img src="assets/images/logo/logo3.png" alt="Secondary Logo">
         </div>
         <ul class="nav-menu">
-            <li><a href="index.html#home">Home</a></li>
-            <li><a href="index.html#shop">Tindahan</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="tindahan.html">Tindahan</a></li>
             <li><a href="pagsasaka.html">Pagsasaka</a></li>
             <li><a href="ulat.html">Ulat</a></li>
             <li><a href="tulong.html" class="active-nav">Tulong at Impormasyon</a></li>
-            <li><a href="index.html#admin">Admin</a></li>
+            <li><a href="admin.html">Admin</a></li>
         </ul>
         <div class="auth-buttons">
             <button onclick="window.location = 'signup.html'" class="tab">Sign Up</button>
@@ -205,13 +277,20 @@
 
     <div class="mobile-fab-container">
         <div class="mobile-menu-popup" id="mobileMenu">
-            <a href="index.html#home" class="popup-item"><i class="fa-solid fa-house"></i> Home</a>
-            <a href="index.html#shop" class="popup-item"><i class="fa-solid fa-store"></i> Tindahan</a>
+            <a href="index.html" class="popup-item"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="tindahan.html" class="popup-item"><i class="fa-solid fa-store"></i> Tindahan</a>
             <a href="pagsasaka.html" class="popup-item"><i class="fa-solid fa-wheat-awn"></i> Pagsasaka</a>
             <a href="ulat.html" class="popup-item"><i class="fa-solid fa-chart-line"></i> Ulat</a>
-            <a href="tulong.html" class="popup-item" style="background: var(--light-field); color: var(--deep-green);"><i class="fa-solid fa-circle-info"></i> Impormasyon</a>
+            <a href="tulong.html" class="popup-item active-mobile"><i class="fa-solid fa-circle-info"></i> Impormasyon</a>
+            
+            <hr style="border: none; border-top: 1px solid rgba(99, 153, 34, 0.1); margin: 6px 0;">
+            
+            <a href="signup.html" class="popup-item" style="color: var(--soil);"><i class="fa-solid fa-user-plus"></i> Sign Up</a>
+            <a href="login.html" class="popup-item" style="color: var(--soil);"><i class="fa-solid fa-right-to-bracket"></i> Log In</a>
         </div>
-        <button class="mobile-fab-btn" onclick="toggleMobileMenu()"><i class="fa-solid fa-bars"></i></button>
+        <button class="mobile-fab-btn" onclick="toggleMobileMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
     </div>
 
     <header class="hub-header">
@@ -220,7 +299,7 @@
         <p>Gabay, kontak, at direktoryo ng pamahalaan para sa proteksyon at suporta ng sakahan.</p>
 
         <div class="sub-tabs">
-            <button class="tab active" onclick="switchTab(event, 'opisina-agri')"><i class="fa-solid fa-building-gov"></i> Opisina ng Agrikultura</button>
+            <button class="tab active" onclick="switchTab(event, 'opisina-agri')"><i class="fa-solid fa-building-columns"></i> Opisina ng Agrikultura</button>
             <button class="tab" onclick="switchTab(event, 'pagasa')"><i class="fa-solid fa-cloud-sun-rain"></i> PAGASA</button>
             <button class="tab" onclick="switchTab(event, 'da-hotline')"><i class="fa-solid fa-phone-volume"></i> DA Hotline</button>
             <button class="tab" onclick="switchTab(event, 'insurance-ayuda')"><i class="fa-solid fa-hand-holding-dollar"></i> Insurance at Ayuda</button>
@@ -312,7 +391,6 @@
     </footer>
 
     <script>
-        // Smooth tab controller
         function switchTab(evt, sectionId) {
             const sections = document.querySelectorAll('.content-section');
             sections.forEach(section => section.classList.remove('active-section'));
@@ -322,6 +400,8 @@
 
             document.getElementById(sectionId).classList.add('active-section');
             evt.currentTarget.classList.add('active');
+
+            window.scrollTo({ top: document.querySelector('.hub-header').offsetTop + 180, behavior: 'smooth' });
         }
 
         function toggleMobileMenu() {
